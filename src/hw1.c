@@ -362,8 +362,8 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
         }
     }
 
-    for (int i = 0; i < num_rows; i++){
-        free(medium_board[i]);
+    for (int freeIndex = 0; freeIndex < num_rows; freeIndex++){
+        free(medium_board[freeIndex]);
     }
     free(medium_board);
 
