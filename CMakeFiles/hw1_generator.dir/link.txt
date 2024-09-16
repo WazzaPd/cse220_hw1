@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/hw1_generator.dir/src/hw1.c.o CMakeFiles/hw1_generator.dir/src/hw1_generator.c.o -o hw1_generator  -lm 

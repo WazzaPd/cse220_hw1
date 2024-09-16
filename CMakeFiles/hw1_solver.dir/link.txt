@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/hw1_solver.dir/src/hw1.c.o CMakeFiles/hw1_solver.dir/src/hw1_solver.c.o -o hw1_solver  -lm 

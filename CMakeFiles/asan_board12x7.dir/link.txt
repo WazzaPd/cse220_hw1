@@ -1,0 +1,1 @@
+/usr/bin/cc -fsanitize=address -fsanitize=leak -fsanitize=undefined CMakeFiles/asan_board12x7.dir/tests/src/asan_board12x7.c.o CMakeFiles/asan_board12x7.dir/src/hw1.c.o -o asan_board12x7  -lm -lasan 

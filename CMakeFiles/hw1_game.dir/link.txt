@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/hw1_game.dir/src/hw1.c.o CMakeFiles/hw1_game.dir/src/hw1_game.c.o -o hw1_game  -lm 

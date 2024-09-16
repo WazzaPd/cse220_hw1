@@ -21,6 +21,11 @@ Hint: We defined these constants, you dont need to.
 #define MAX_ROWS 20
 #define MAX_COLS 20
 
+int full_board(int num_rows, int num_cols);
+void insert_token(char token, int row, int column);
+int check_and_insert(char token, int row, int column);
+int four_in_a_row(int num_rows, int num_cols);
+void print_board(int num_rows, int num_cols);
 void initialize_board(const char *initial_state, int num_rows, int num_cols);
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o);
 char* generate_medium(const char *final_state, int num_rows, int num_cols);
