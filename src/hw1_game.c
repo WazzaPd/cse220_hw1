@@ -17,6 +17,20 @@ int main(int argc, char **argv) {
     int column_choice;
     int choosing;
 
+    //Testing Generate Board
+    //generate_medium(argv[3], num_rows, num_cols);
+
+    //Testing solve function
+    // int *num_x = malloc(sizeof(int));
+    // int *num_o = malloc(sizeof(int));
+
+    // printf("%d\n", solve(argv[3], num_rows, num_cols, num_x, num_o));
+    // print_board(num_rows, num_cols);
+    // printf("x's: %d, o's: %d\n", *num_x, *num_o);
+
+    // free(num_x);
+    // free(num_o);
+
     //Loop until the board is filled = Win
     while(! full_board(num_rows, num_cols)){
 
@@ -65,7 +79,7 @@ int main(int argc, char **argv) {
             continue;
         }
 
-        int connect_valid = four_in_a_row(num_rows, num_cols);
+        int connect_valid = (! four_in_a_row(num_rows, num_cols));
         if(!connect_valid) {
             insert_token('-', row_choice, column_choice);
             printf("Invalid choice. You have created 4-in-a-row.\n");

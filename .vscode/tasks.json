@@ -16,8 +16,9 @@
 			"label": "Build",
 			"dependsOrder": "sequence",
 			"dependsOn": [
-				"CMake: build",
-			]
+				"CMake: build"
+			],
+			"problemMatcher": []
 		}
 	]
 }
