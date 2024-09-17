@@ -120,11 +120,7 @@ void print_board(int num_rows, int num_cols) {
     int col_size = num_rows;
     for (int row = 0; row < row_size; row++) {
         for (int col = 0; col < col_size; col++) {
-            printf("%c", board[row][col]);
-
-            if (col < row_size) {
-                printf(" ");
-            }
+            printf("%c ", board[row][col]);
         }
         printf("\n");
     }
