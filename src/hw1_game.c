@@ -68,7 +68,7 @@ int main(int argc, char **argv) {
         while(choosing){
             printf("Choose a column (0-%d): ", num_cols-1);
             if (scanf("%d", &column_choice) == 0 || column_choice > num_cols || column_choice < 0 ){
-                getchar() != '\n';
+                getchar();
                 printf("Invalid choice. ");
             } else {
                 choosing = 0;
