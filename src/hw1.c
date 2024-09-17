@@ -289,17 +289,22 @@ char* populate_board(char **medium_board, int num_rows, int num_cols){
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
     char *board_string = malloc(num_rows*num_cols*sizeof(char));
     
-    char **medium_board = malloc(num_rows*sizeof(char *));
-    for (int i = 0; i < num_rows; i++){
-        medium_board[i] = malloc(num_cols*sizeof(char));
-    }
+    char medium_board[num_rows][num_cols];
 
     // populate_board(medium_board, num_rows, num_cols);
+
+    //check for invalid chars
+    // for(int i = 0; i<num_cols*num_rows; i++){
+    //     char current = final_state[i];
+    //     if (current != 'x' && current != 'o'){
+    //         return;
+    //     }
+    // }
 
     int i = 0;
     for (int row = 0; row<num_rows; row++){
         for(int col = 0; col<num_cols; col++){
-            medium_board[row][col] = final_state[(row*num_rows) + col];
+            medium_board[row][col] = final_state[(row*num_cols) + col];
             board_string[i] = medium_board[row][col];
             i++;
         }
@@ -327,11 +332,6 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
             }
         }
     }
-
-    for (int freeIndex = 0; freeIndex < num_rows; freeIndex++){
-        free(medium_board[freeIndex]);
-    }
-    free(medium_board);
 
     return board_string;
 }

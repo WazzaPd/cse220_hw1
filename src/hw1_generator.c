@@ -13,6 +13,5 @@ int main(int argc, char **argv)
     initial_state = generate_medium(argv[3], (int)strtoul(argv[1], NULL, 10), (int)strtoul(argv[2], NULL, 10));
     printf("Result: %s\n", initial_state);
     free(initial_state);
-    free(argv[3]);
     return 0;
 }

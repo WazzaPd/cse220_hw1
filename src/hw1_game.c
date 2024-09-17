@@ -18,7 +18,9 @@ int main(int argc, char **argv) {
     int choosing;
 
     //Testing Generate Board
-    //generate_medium(argv[3], num_rows, num_cols);
+    // char* boarding;
+    // boarding = generate_medium(argv[3], num_rows, num_cols);
+    // printf("%s\n", *boarding);
 
     //Testing solve function
     // int *num_x = malloc(sizeof(int));
