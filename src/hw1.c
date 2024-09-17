@@ -165,10 +165,6 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 
     initialize_board(initial_state, num_rows, num_cols);
 
-    printf("Solve this board\n");
-    print_board(num_rows, num_cols);
-    printf("\n");
-
     if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_FOUR_IN_A_ROW;
 
     const char* iterator = initial_state;
@@ -324,7 +320,6 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
             int code = solve(board_string, num_rows, num_cols, num_x, num_o);
             free(num_x);
             free(num_o);
-            printf("code: %d\n", code);
 
             if(code == INITIAL_BOARD_NO_SOLUTION || code == HEURISTICS_FAILED){
                 medium_board[row][col] = store;
