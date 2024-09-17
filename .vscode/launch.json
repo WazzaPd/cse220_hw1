@@ -6,7 +6,7 @@
             "request": "launch",
             "name": "Run Game",
             "program": "${workspaceRoot}/build/hw1_game",
-            "args": ["10", "10", "x-o----xxo-----x--o-x---------xx--x--x-------xx----x--x------x--x---xx--x-----x---o-x---xxo-xxx-xx-x"],
+            "args": ["5", "6", "xxx-o---x--x-oo--x-oo-x---x--x"],
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "Build",
         },

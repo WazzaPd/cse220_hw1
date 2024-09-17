@@ -11,11 +11,9 @@ Hint: Consider adding a global variable to store a string large enough to store 
 */
 
 int full_board(int num_rows, int num_cols){
-    int row_size = num_cols;
-    int col_size = num_rows;
 
-    for (int row = 0; row< row_size; row++){
-        for (int col = 0; col< col_size; col++){
+    for (int row = 0; row< num_rows; row++){
+        for (int col = 0; col< num_cols; col++){
             char current_token = board[row][col];
             if (current_token == '-'){
                 return 0;
@@ -46,15 +44,13 @@ int check_and_insert(char token, int row, int column){
 
 // return 1 if four in a row
 int four_in_a_row(int num_rows, int num_cols){
-    int row_size = num_cols;
-    int col_size = num_rows;
 
     char check_token;
     char token1, token2, token3;
 
     //horizontal checks
-    for (int row = 0; row<row_size; row++){
-        for(int col = 0; col<col_size-3; col++){
+    for (int row = 0; row<num_rows; row++){
+        for(int col = 0; col<num_cols-3; col++){
             
             check_token = board[row][col];
             if (check_token == '-') continue;
@@ -68,8 +64,8 @@ int four_in_a_row(int num_rows, int num_cols){
     }
 
     //vertical checks
-    for (int row = 0; row<row_size-3; row++){
-        for(int col = 0; col<col_size; col++){
+    for (int row = 0; row<num_rows-3; row++){
+        for(int col = 0; col<num_cols; col++){
             
             check_token = board[row][col];
             if (check_token == '-') continue;
@@ -83,8 +79,8 @@ int four_in_a_row(int num_rows, int num_cols){
     }
 
     //downright diagonals
-    for (int row = 0; row<row_size-3; row++){
-        for(int col = 0; col<col_size-3; col++){
+    for (int row = 0; row<num_rows-3; row++){
+        for(int col = 0; col<num_cols-3; col++){
             
             check_token = board[row][col];
             if (check_token == '-') continue;
@@ -98,8 +94,8 @@ int four_in_a_row(int num_rows, int num_cols){
     }
 
     //upright diagonals
-    for (int row = 3; row<row_size; row++){
-        for(int col = 0; col<col_size-3; col++){
+    for (int row = 3; row<num_rows; row++){
+        for(int col = 0; col<num_cols-3; col++){
             
             check_token = board[row][col];
             if (check_token == '-') continue;
@@ -182,9 +178,6 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
         }
         iterator++;
     }
-
-    int row_size = num_cols;
-    int col_size = num_rows;
     char *token1, *token2, *token3, *token4;
 
 
@@ -192,8 +185,8 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
         int next_cycle = 0;
 
         //check horizontal
-        for (int row = 0; row<row_size; row++){
-            for(int col = 0; col<col_size; col++){
+        for (int row = 0; row<num_rows; row++){
+            for(int col = 0; col<num_cols; col++){
                 
                 token1 = &board[row][col];
                 token2 = &board[row][col+1];
@@ -206,8 +199,8 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
         }
 
         //vertical checks
-        for (int row = 0; row<row_size-3; row++){
-            for(int col = 0; col<col_size; col++){
+        for (int row = 0; row<num_rows-3; row++){
+            for(int col = 0; col<num_cols; col++){
                 
                 token1 = &board[row][col];
                 token2 = &board[row+1][col];
@@ -220,8 +213,8 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
         }
 
         //downright diagonals
-        for (int row = 0; row<row_size-3; row++){
-            for(int col = 0; col<col_size-3; col++){
+        for (int row = 0; row<num_rows-3; row++){
+            for(int col = 0; col<num_cols-3; col++){
                 
                 token1 = &board[row][col];
                 token1 = &board[row+1][col+1];
@@ -234,8 +227,8 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
         }
 
         //upright diagonals
-        for (int row = 3; row<row_size; row++){
-            for(int col = 0; col<col_size-3; col++){
+        for (int row = 3; row<num_rows; row++){
+            for(int col = 0; col<num_cols-3; col++){
                 
                 token1 = &board[row][col];
                 token2 = &board[row-1][col+1];
@@ -257,8 +250,8 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     int countx = 0;
     int counto = 0;
 
-    for (int row = 0; row<row_size; row++){
-            for(int col = 0; col<col_size; col++){
+    for (int row = 0; row<num_rows; row++){
+            for(int col = 0; col<num_cols; col++){
                 char current = board[row][col];
                 if (current == 'x') countx++;
                 else counto++;
@@ -273,14 +266,12 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 
 // brute force random tokens to create a valid board (helper to prove generate_medium works)
 char* populate_board(char **medium_board, int num_rows, int num_cols){
-    int row_size = num_cols;
-    int col_size = num_rows;
-    char *board_string = malloc(row_size*col_size*sizeof(char));
+    char *board_string = malloc(num_rows*num_cols*sizeof(char));
 
     while(true){
         int i = 0;
-        for (int row = 0; row<row_size; row++){
-            for(int col = 0; col<col_size; col++){
+        for (int row = 0; row<num_rows; row++){
+            for(int col = 0; col<num_cols; col++){
                 int random_piece = rand() % 2;
                 if(random_piece) medium_board[row][col] = 'x';
                 else medium_board[row][col] = 'o';
@@ -299,9 +290,7 @@ char* populate_board(char **medium_board, int num_rows, int num_cols){
 }
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
-    int row_size = num_cols;
-    int col_size = num_rows;
-    char *board_string = malloc(row_size*col_size*sizeof(char));
+    char *board_string = malloc(num_rows*num_cols*sizeof(char));
     
     char **medium_board = malloc(num_rows*sizeof(char *));
     for (int i = 0; i < num_rows; i++){
@@ -311,9 +300,9 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
     // populate_board(medium_board, num_rows, num_cols);
 
     int i = 0;
-    for (int row = 0; row<row_size; row++){
-        for(int col = 0; col<col_size; col++){
-            medium_board[row][col] = final_state[(row*row_size) + col];
+    for (int row = 0; row<num_rows; row++){
+        for(int col = 0; col<num_cols; col++){
+            medium_board[row][col] = final_state[(row*num_rows) + col];
             board_string[i] = medium_board[row][col];
             i++;
         }
@@ -326,7 +315,7 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
         for(int col = 0; col<num_rows; col++){
             char store = medium_board[row][col];
             medium_board[row][col] = '-';
-            board_string[row*row_size+col] = '-';
+            board_string[row*num_rows+col] = '-';
 
             //solve
             int *num_x = malloc(sizeof(int));
@@ -338,7 +327,7 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
 
             if(code == INITIAL_BOARD_NO_SOLUTION || code == HEURISTICS_FAILED){
                 medium_board[row][col] = store;
-                board_string[row*row_size+col] = store;
+                board_string[row*num_rows+col] = store;
             }
         }
     }
