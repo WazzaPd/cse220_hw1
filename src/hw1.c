@@ -323,9 +323,9 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
             
             initialize_board(board_string, num_rows, num_cols);
 
-            printf("after switch\n");
-            print_board(num_rows, num_cols);
-            printf("\n");
+            // printf("after switch\n");
+            // print_board(num_rows, num_cols);
+            // printf("\n");
 
             //solve
             int *num_x = malloc(sizeof(int));
