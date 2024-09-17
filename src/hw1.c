@@ -116,10 +116,8 @@ int four_in_a_row(int num_rows, int num_cols){
 }
 
 void print_board(int num_rows, int num_cols) {
-    int row_size = num_cols;
-    int col_size = num_rows;
-    for (int row = 0; row < row_size; row++) {
-        for (int col = 0; col < col_size; col++) {
+    for (int row = 0; row < num_rows; row++) {
+        for (int col = 0; col < num_cols; col++) {
             printf("%c ", board[row][col]);
         }
         printf("\n");
@@ -127,16 +125,11 @@ void print_board(int num_rows, int num_cols) {
 }
 
 void initialize_board(const char *initial_state, int num_rows, int num_cols) {
-    int row_size = num_cols;
-    int col_size = num_rows;
-
-    for (int row = 0; row<row_size; row++){
-        for(int col = 0; col<col_size; col++){
-            board[row][col] = initial_state[(row*row_size) + col];
+    for (int row = 0; row<num_rows; row++){
+        for(int col = 0; col<num_cols; col++){
+            board[row][col] = initial_state[(row*num_cols) + col];
         }
     }
-
-    return;
 }
 
 char opposite_piece(char piece){
