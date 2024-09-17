@@ -56,8 +56,7 @@ int main(int argc, char **argv) {
         while(choosing){
             printf("Choose a row (0-%d): ", num_rows-1);
             if (scanf(" %d", &row_choice) == 0 || row_choice > num_rows || row_choice < 0 ){
-                int c;
-                while ((c = getchar()) != '\n');
+                scanf("%*s");
                 printf("Invalid choice. ");
             } else {
                 choosing = 0;
@@ -69,8 +68,7 @@ int main(int argc, char **argv) {
         while(choosing){
             printf("Choose a column (0-%d): ", num_cols-1);
             if (scanf(" %d", &column_choice) == 0 || column_choice > num_cols || column_choice < 0 ){
-                int c;
-                while ((c = getchar()) != '\n');
+                scanf("%*s");
                 printf("Invalid choice. ");
             } else {
                 choosing = 0;
