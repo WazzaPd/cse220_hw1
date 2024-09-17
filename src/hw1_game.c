@@ -37,104 +37,104 @@ int main(int argc, char **argv) {
         print_board(num_rows, num_cols);
 
         //Loop until quit or made a valid choice
-        // choosing = 1;
-        // while(choosing){
-        //     printf("Choose a piece (x or o) or q to quit: ");
-        //     if (scanf(" %c", &piece_choice) == 0){
-        //         printf("Invalid choice. ");
-        //     }else if (piece_choice == 'q'){
-        //         return 0;
-        //     } else if (piece_choice != 'x' && piece_choice != 'o'){
-        //         printf("Invalid choice. ");
-        //     } else {
-        //         choosing = 0;
-        //     }
-        // }
-
-        // //Loop until made valid choice
-        // choosing = 1;
-        // while(choosing){
-        //     printf("Choose a row (0-%d): ", num_rows-1);
-        //     if (scanf("%d", &row_choice) == 0 || row_choice > num_rows || row_choice < 0 ){
-        //         scanf("%*s");
-        //         printf("Invalid choice. ");
-        //     } else {
-        //         choosing = 0;
-        //     }
-        // }
-
-        // //Loop until made valid choice
-        // choosing = 1;
-        // while(choosing){
-        //     printf("Choose a column (0-%d): ", num_cols-1);
-        //     if (scanf("%d", &column_choice) == 0 || column_choice > num_cols || column_choice < 0 ){
-        //         scanf("%*s");
-        //         printf("Invalid choice. ");
-        //     } else {
-        //         choosing = 0;
-        //     }
-        // }
-        char input[10];
-
         choosing = 1;
-        while (choosing) {
+        while(choosing){
             printf("Choose a piece (x or o) or q to quit: ");
-            if (fgets(input, sizeof(input), stdin) != NULL) {
-                piece_choice = input[0];  // Take the first character from input
-                if (piece_choice == 'q') {
-                    return 0;
-                } else if (piece_choice != 'x' && piece_choice != 'o') {
-                    printf("Invalid choice. ");
-                } else {
-                    choosing = 0;
-                }
-            } else {
+            if (scanf(" %c", &piece_choice) == 0){
                 printf("Invalid choice. ");
+            }else if (piece_choice == 'q'){
+                return 0;
+            } else if (piece_choice != 'x' && piece_choice != 'o'){
+                printf("Invalid choice. ");
+            } else {
+                choosing = 0;
             }
         }
 
+        //Loop until made valid choice
         choosing = 1;
-        while (choosing) {
-            printf("Choose a row (0-%d): ", num_rows - 1);
-            if (fgets(input, sizeof(input), stdin) != NULL) {
-                if(input[0] == '0'){
-                    row_choice = 0;
-                } else if(atoi(input) == 0){
-                    row_choice = -1;
-                } else {
-                    row_choice = atoi(input);  // Convert string input to integer
-                }
-                if (row_choice >= num_rows || row_choice < 0) {
-                    printf("Invalid choice. ");
-                } else {
-                    choosing = 0;
-                }
-            } else {
+        while(choosing){
+            printf("Choose a row (0-%d): ", num_rows-1);
+            if (scanf("%d", &row_choice) == 0 || row_choice > num_rows || row_choice < 0 ){
+                getchar();
                 printf("Invalid choice. ");
+            } else {
+                choosing = 0;
             }
         }
 
-        // Loop until made valid choice for column
+        //Loop until made valid choice
         choosing = 1;
-        while (choosing) {
-            printf("Choose a column (0-%d): ", num_cols - 1);
-            if (fgets(input, sizeof(input), stdin) != NULL) {
-                if(input[0] == '0'){
-                    column_choice = 0;
-                } else if(atoi(input) == 0){
-                    column_choice = -1;
-                } else {
-                    column_choice = atoi(input);  // Convert string input to integer
-                }
-                if (column_choice >= num_cols || column_choice < 0) {
-                    printf("Invalid choice. ");
-                } else {
-                    choosing = 0;
-                }
-            } else {
+        while(choosing){
+            printf("Choose a column (0-%d): ", num_cols-1);
+            if (scanf("%d", &column_choice) == 0 || column_choice > num_cols || column_choice < 0 ){
+                getchar() != '\n';
                 printf("Invalid choice. ");
+            } else {
+                choosing = 0;
             }
         }
+        // char input[3];
+
+        // choosing = 1;
+        // while (choosing) {
+        //     printf("Choose a piece (x or o) or q to quit: ");
+        //     if (fgets(input, sizeof(input), stdin) != NULL) {
+        //         piece_choice = input[0];  // Take the first character from input
+        //         if (piece_choice == 'q') {
+        //             return 0;
+        //         } else if (piece_choice != 'x' && piece_choice != 'o') {
+        //             printf("Invalid choice. ");
+        //         } else {
+        //             choosing = 0;
+        //         }
+        //     } else {
+        //         printf("Invalid choice. ");
+        //     }
+        // }
+
+        // choosing = 1;
+        // while (choosing) {
+        //     printf("Choose a row (0-%d): ", num_rows - 1);
+        //     if (fgets(input, sizeof(input), stdin) != NULL) {
+        //         if(input[0] == '0'){
+        //             row_choice = 0;
+        //         } else if(atoi(input) == 0){
+        //             row_choice = -1;
+        //         } else {
+        //             row_choice = atoi(input);  // Convert string input to integer
+        //         }
+        //         if (row_choice >= num_rows || row_choice < 0) {
+        //             printf("Invalid choice. ");
+        //         } else {
+        //             choosing = 0;
+        //         }
+        //     } else {
+        //         printf("Invalid choice. ");
+        //     }
+        // }
+
+        // // Loop until made valid choice for column
+        // choosing = 1;
+        // while (choosing) {
+        //     printf("Choose a column (0-%d): ", num_cols - 1);
+        //     if (fgets(input, sizeof(input), stdin) != NULL) {
+        //         if(input[0] == '0'){
+        //             column_choice = 0;
+        //         } else if(atoi(input) == 0){
+        //             column_choice = -1;
+        //         } else {
+        //             column_choice = atoi(input);  // Convert string input to integer
+        //         }
+        //         if (column_choice >= num_cols || column_choice < 0) {
+        //             printf("Invalid choice. ");
+        //         } else {
+        //             choosing = 0;
+        //         }
+        //     } else {
+        //         printf("Invalid choice. ");
+        //     }
+        // }
 
         int space_valid = check_and_insert(piece_choice, row_choice, column_choice);
         if(!space_valid) {
