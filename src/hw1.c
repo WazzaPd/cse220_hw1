@@ -313,11 +313,19 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
     initialize_board(board_string, num_rows, num_cols);
 
     //get rid of a token
-    for (int row = 0; row<num_cols; row++){
-        for(int col = 0; col<num_rows; col++){
+    for (int row = 0; row<num_rows; row++){
+
+        //WHY TF CAN COL = 5
+        for(int col = 0; col<num_cols; col++){
             char store = medium_board[row][col];
             medium_board[row][col] = '-';
-            board_string[row*num_rows+col] = '-';
+            board_string[(row*num_cols)+col] = '-';
+            
+            initialize_board(board_string, num_rows, num_cols);
+
+            printf("after switch\n");
+            print_board(num_rows, num_cols);
+            printf("\n");
 
             //solve
             int *num_x = malloc(sizeof(int));
@@ -326,9 +334,9 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
             free(num_x);
             free(num_o);
 
-            if(code == INITIAL_BOARD_NO_SOLUTION || code == HEURISTICS_FAILED){
+            if(code != FOUND_SOLUTION){
                 medium_board[row][col] = store;
-                board_string[row*num_rows+col] = store;
+                board_string[(row*num_cols)+col] = store;
             }
         }
     }
