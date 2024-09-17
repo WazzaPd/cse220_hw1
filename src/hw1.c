@@ -186,7 +186,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 
         //check horizontal
         for (int row = 0; row<num_rows; row++){
-            for(int col = 0; col<num_cols; col++){
+            for(int col = 0; col<num_cols-3; col++){
                 
                 token1 = &board[row][col];
                 token2 = &board[row][col+1];
@@ -217,7 +217,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
             for(int col = 0; col<num_cols-3; col++){
                 
                 token1 = &board[row][col];
-                token1 = &board[row+1][col+1];
+                token2 = &board[row+1][col+1];
                 token3 = &board[row+2][col+2];
                 token4 = &board[row+3][col+3];
 
@@ -244,6 +244,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
             continue;
         }
 
+        //print_board(num_rows, num_cols);
         return HEURISTICS_FAILED;
     }
 
