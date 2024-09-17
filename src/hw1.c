@@ -167,7 +167,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 
     if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_FOUR_IN_A_ROW;
 
-    for (int i = 0; initial_state[i] != 0; i++){
+    for (int i = 0; i < num_cols*num_rows; i++){
         if(initial_state[i] != 'x' && initial_state[i] != 'o' && initial_state[i] != '-'){
             return INITIAL_BOARD_INVALID_CHARACTERS;
         }
