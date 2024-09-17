@@ -119,7 +119,7 @@ void print_board(int num_rows, int num_cols){
     int row_size = num_cols;
     int col_size = num_rows;
 
-    char print_row[row_size*2+1];
+    char print_row[row_size*2];
 
     for (int row = 0; row<row_size; row++){
         char *iterator = print_row;
@@ -131,7 +131,7 @@ void print_board(int num_rows, int num_cols){
         }
 
         //
-        *iterator = '\0';
+        *(iterator-1) = '\0';
         printf("%s\n", print_row);
     }
 

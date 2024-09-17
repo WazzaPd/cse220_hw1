@@ -30,6 +30,7 @@ void initialize_board(const char *initial_state, int num_rows, int num_cols);
 char opposite_piece(char piece);
 int three_equal_and_one_dash(char *token1, char *token2, char *token3, char* token4);
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o);
+char* populate_board(char **medium_board, int num_rows, int num_cols);
 char* generate_medium(const char *final_state, int num_rows, int num_cols);
 
 
