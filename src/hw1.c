@@ -167,19 +167,28 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 
     if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_FOUR_IN_A_ROW;
 
-    for (int i = 0; i < num_cols*num_rows; i++){
-        if(initial_state[i] != 'x' && initial_state[i] != 'o' && initial_state[i] != '-'){
-            return INITIAL_BOARD_INVALID_CHARACTERS;
-        }
-    }
-    
-    // const char* iterator = initial_state;
-    // while (*iterator!='\0'){
-    //     if(*iterator != 'x' && *iterator != 'o' && *iterator != '-'){
+    // for (int i = 0; i < num_cols*num_rows; i++){
+    //     printf("%c\n", initial_state[i]);
+    //     if(initial_state[i] != 'x' && initial_state[i] != 'o' && initial_state[i] != '-'){
     //         return INITIAL_BOARD_INVALID_CHARACTERS;
     //     }
-    //     iterator++;
     // }
+
+    // for (int i = 0; initial_state[i] != 0; i++){
+    //     if(initial_state[i] != 'x' && initial_state[i] != 'o' && initial_state[i] != '-'){
+    //         return INITIAL_BOARD_INVALID_CHARACTERS;
+    //     }
+    // }
+    
+    const char* iterator = initial_state;
+    while (*iterator!='\0'){
+        if(*iterator != 'x' && *iterator != 'o' && *iterator != '-'){
+            return INITIAL_BOARD_INVALID_CHARACTERS;
+        }
+        iterator++;
+    }
+
+
     char *token1, *token2, *token3, *token4;
 
 
@@ -323,7 +332,6 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
     //get rid of a token
     for (int row = 0; row<num_rows; row++){
 
-        //WHY TF CAN COL = 5
         for(int col = 0; col<num_cols; col++){
             char store = medium_board[row][col];
             medium_board[row][col] = '-';
