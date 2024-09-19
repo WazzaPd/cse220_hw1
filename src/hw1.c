@@ -296,8 +296,6 @@ int solve_for_single_token(const char *initial_state, int num_rows, int num_cols
 
     int check_diagonal_down = 0, check_diagonal_up = 0;
 
-    if( (num_rows-1)-row <= 3 && (num_cols-1)-col <= 3)
-
     // Compute Vertical limits
     if(row > 2){
         vertical_row_start = row-3;
@@ -410,6 +408,9 @@ int solve_for_single_token(const char *initial_state, int num_rows, int num_cols
 
     char *token1, *token2, *token3, *token4;
     int found = 0;
+
+    diagonal_down_row_end = diagonal_up_row_end;
+    diagonal_up_row_end = diagonal_down_row_end;
 
     for(int i = vertical_row_start; i<vertical_row_end-3; i++){
         token1 = &board[i][col];
