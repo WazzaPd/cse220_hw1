@@ -179,8 +179,8 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     while(! full_board(num_rows, num_cols)){
         int next_cycle = 0;
 
-        print_board(num_rows, num_cols);
-        printf("\n");
+        // print_board(num_rows, num_cols);
+        // printf("\n");
 
         //check horizontal
         for (int row = 0; row<num_rows; row++){
@@ -423,7 +423,7 @@ int four_in_a_row_for_single_token(int num_rows, int num_cols, int row, int col)
         token3 = &board[i+2][col];
         token4 = &board[i+3][col];
 
-        if (*token1 == *token4 && *token2 == *token4 && *token3 == *token4) return 1;
+        if (*token1 == *token4 && *token2 == *token4 && *token3 == *token4 && *token4!= '-') return 1;
         //if(three_equal_and_one_dash(token1, token2, token3, token4)) found = 1;
         //if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
     }
@@ -433,7 +433,7 @@ int four_in_a_row_for_single_token(int num_rows, int num_cols, int row, int col)
         token3 = &board[row][i+1];
         token4 = &board[row][i+2];
         token2 = &board[row][i+3];
-        if (*token1 == *token4 && *token2 == *token4 && *token3 == *token4) return 1;
+        if (*token1 == *token4 && *token2 == *token4 && *token3 == *token4 && *token4!= '-') return 1;
     }
 
     if(check_diagonal_down){
@@ -445,7 +445,7 @@ int four_in_a_row_for_single_token(int num_rows, int num_cols, int row, int col)
 
             diagonal_down_row_start++;
 
-            if (*token1 == *token4 && *token2 == *token4 && *token3 == *token4) return 1;
+            if (*token1 == *token4 && *token2 == *token4 && *token3 == *token4 && *token4!= '-') return 1;
         }
     }
 
@@ -458,7 +458,7 @@ int four_in_a_row_for_single_token(int num_rows, int num_cols, int row, int col)
 
             diagonal_up_row_start--;
 
-            if (*token1 == *token4 && *token2 == *token4 && *token3 == *token4) return 1;
+            if (*token1 == *token4 && *token2 == *token4 && *token3 == *token4 && *token4!= '-') return 1;
         }
     }
     

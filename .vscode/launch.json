@@ -15,7 +15,7 @@
             "request": "launch",
             "name": "Run Solver Main",
             "program": "${workspaceRoot}/build/hw1_solver",
-            "args": ["4", "4", "xxx-xoooooxoxxoo"],
+            "args": ["8", "8", "xxoo---oo--o--oooo----o--o-----ox----------x--xoooxx-o-o--xx--oo"],
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "Build",
         },
