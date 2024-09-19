@@ -189,7 +189,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                 token4 = &board[row][col+3];
 
                 if(three_equal_and_one_dash(token1, token2, token3, token4)) next_cycle = 1;
-                if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
+                if(four_in_a_row_for_single_token(num_rows, num_cols, row, col)) return INITIAL_BOARD_NO_SOLUTION;
             }
         }
 
@@ -203,7 +203,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                 token4 = &board[row+3][col];
 
                 if(three_equal_and_one_dash(token1, token2, token3, token4)) next_cycle = 1;
-                if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
+                if(four_in_a_row_for_single_token(num_rows, num_cols, row, col)) return INITIAL_BOARD_NO_SOLUTION;
             }
         }
 
@@ -217,7 +217,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                 token4 = &board[row+3][col+3];
 
                 if(three_equal_and_one_dash(token1, token2, token3, token4)) next_cycle = 1;
-                if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
+                if(four_in_a_row_for_single_token(num_rows, num_cols, row, col)) return INITIAL_BOARD_NO_SOLUTION;
             }
         }
 
@@ -231,7 +231,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                 token4 = &board[row-3][col+3];
 
                 if(three_equal_and_one_dash(token1, token2, token3, token4)) next_cycle = 1;
-                if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
+                if(four_in_a_row_for_single_token(num_rows, num_cols, row, col)) return INITIAL_BOARD_NO_SOLUTION;
             }
         }
 
@@ -285,9 +285,10 @@ char* populate_board(char **medium_board, int num_rows, int num_cols){
     return board_string;
 }
 
-int solve_for_single_token(const char *initial_state, int num_rows, int num_cols, int row, int col){
+// int four_in_a_row_for_single_token(const char *initial_state, int num_rows, int num_cols, int row, int col){
+int four_in_a_row_for_single_token(int num_rows, int num_cols, int row, int col){
 
-    initialize_board(initial_state, num_rows, num_cols);
+    //initialize_board(initial_state, num_rows, num_cols);
     
     // diagonals read from left to right. EX: A diagonal down would start from top-left to bottom-right
     int vertical_row_start, vertical_row_end, horizontal_col_start, horizontal_col_end,
@@ -420,20 +421,18 @@ int solve_for_single_token(const char *initial_state, int num_rows, int num_cols
         token3 = &board[i+2][col];
         token4 = &board[i+3][col];
 
-        if(three_equal_and_one_dash(token1, token2, token3, token4)) found = 1;
-        if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
+        if (token1 == token4 && token2 == token4 && token3 == token4) return 1;
+        //if(three_equal_and_one_dash(token1, token2, token3, token4)) found = 1;
+        //if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
     }
-    if(found) return FOUND_SOLUTION;
 
     for(int i = horizontal_col_start; i<=horizontal_col_end-3; i++){
         token1 = &board[row][i];
         token3 = &board[row][i+1];
         token4 = &board[row][i+2];
         token2 = &board[row][i+3];
-        if(three_equal_and_one_dash(token1, token2, token3, token4)) found = 1;
-        if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
+        if (token1 == token4 && token2 == token4 && token3 == token4) return 1;
     }
-    if(found) return FOUND_SOLUTION;
 
     if(check_diagonal_down){
         for(int i = diagonal_down_col_start; i<=diagonal_down_col_end-3; i++){
@@ -444,10 +443,8 @@ int solve_for_single_token(const char *initial_state, int num_rows, int num_cols
 
             diagonal_down_row_start++;
 
-            if(three_equal_and_one_dash(token1, token2, token3, token4)) found = 1;
-            if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
+            if (token1 == token4 && token2 == token4 && token3 == token4) return 1;
         }
-        if(found) return FOUND_SOLUTION;
     }
 
     if(check_diagonal_up){
@@ -459,13 +456,11 @@ int solve_for_single_token(const char *initial_state, int num_rows, int num_cols
 
             diagonal_up_row_start--;
 
-            if(three_equal_and_one_dash(token1, token2, token3, token4)) found = 1;
-            if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
+            if (token1 == token4 && token2 == token4 && token3 == token4) return 1;
         }
-        if(found) return FOUND_SOLUTION;
     }
     
-    return HEURISTICS_FAILED;
+    return 0;
 }
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
@@ -515,8 +510,8 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
             // printf("\n");
 
             //solve
-            //int code = solve(board_string, num_rows, num_cols, num_x, num_o);
-            int code = solve_for_single_token(boardcopy, num_rows, num_cols, row, col);
+            int code = solve(board_string, num_rows, num_cols, num_x, num_o);
+            //int code = solve_for_single_token(boardcopy, num_rows, num_cols, row, col);
 
             boardcopy[(row*num_cols)+col] = store;
 

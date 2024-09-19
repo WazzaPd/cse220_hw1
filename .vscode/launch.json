@@ -25,7 +25,7 @@
             "request": "launch",
             "name": "Run Generator Main",
             "program": "${workspaceRoot}/build/hw1_generator",
-            "args": ["4", "4", "xooxooxoxxxoooxx"],
+            "args": ["8", "8", "oxoxoxxoooxxxoxxxoooxoxoooxxxoooxxoxoxxxxoxooxooooxoxxoxxoxoxoxx"],
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "Build",
         },
