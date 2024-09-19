@@ -174,23 +174,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
         }
     }
 
-    // for (int i = 0; initial_state[i] != 0; i++){
-    //     if(initial_state[i] != 'x' && initial_state[i] != 'o' && initial_state[i] != '-'){
-    //         return INITIAL_BOARD_INVALID_CHARACTERS;
-    //     }
-    // }
-    
-    // const char* iterator = initial_state;
-    // while (*iterator!='\0'){
-    //     if(*iterator != 'x' && *iterator != 'o' && *iterator != '-'){
-    //         return INITIAL_BOARD_INVALID_CHARACTERS;
-    //     }
-    //     iterator++;
-    // }
-
-
     char *token1, *token2, *token3, *token4;
-
 
     while(! full_board(num_rows, num_cols)){
         int next_cycle = 0;
@@ -301,6 +285,186 @@ char* populate_board(char **medium_board, int num_rows, int num_cols){
     return board_string;
 }
 
+int solve_for_single_token(const char *initial_state, int num_rows, int num_cols, int row, int col){
+
+    initialize_board(initial_state, num_rows, num_cols);
+    
+    // diagonals read from left to right. EX: A diagonal down would start from top-left to bottom-right
+    int vertical_row_start, vertical_row_end, horizontal_col_start, horizontal_col_end,
+    diagonal_down_row_start, diagonal_down_row_end, diagonal_down_col_start, diagonal_down_col_end, 
+    diagonal_up_row_start, diagonal_up_row_end, diagonal_up_col_start, diagonal_up_col_end;
+
+    int check_diagonal_down = 0, check_diagonal_up = 0;
+
+    if( (num_rows-1)-row <= 3 && (num_cols-1)-col <= 3)
+
+    // Compute Vertical limits
+    if(row > 2){
+        vertical_row_start = row-3;
+    } else {
+        vertical_row_start = 0;
+    }
+    if(row < num_rows-3){
+        vertical_row_end = row+3;
+    } else {
+        vertical_row_end = num_rows-1;
+    }
+
+    // Compute Horizontal limits
+    if(col > 2){
+        horizontal_col_start = col-3;
+    } else {
+        horizontal_col_start = 0;
+    }
+    if(col < num_cols-3){
+        horizontal_col_end = col+3;
+    } else {
+        horizontal_col_end = num_cols-1;
+    }
+
+    // Compute Diagonal down right limits
+    //compute starts
+    if(row <= col){
+        if(row > 2){
+            diagonal_down_row_start = row-3;
+            diagonal_down_col_start = col-3;
+        } else {
+            diagonal_down_row_start = 0;
+            diagonal_down_col_start = col-row;
+        }
+    } else{
+        if(col > 2){
+            diagonal_down_col_start = col-3;
+            diagonal_down_row_start = row-3;
+        } else {
+            diagonal_down_col_start = 0;
+            diagonal_down_row_start = row-col;
+        }
+    }
+    //compute ends
+    if((num_rows-row) <= (num_cols-col)){
+        if(row < num_rows-3){
+            diagonal_down_row_end = row+3;
+            diagonal_down_col_end = col+3;
+        } else {
+            diagonal_down_row_end = num_rows-1;
+            diagonal_down_col_end = col+((num_rows-1)-row);
+        }
+    } else{
+        if(col < num_cols-3){
+            diagonal_down_col_end = col+3;
+            diagonal_down_row_end = row+3;
+        } else {
+            diagonal_down_col_end = num_cols-1;
+            diagonal_down_row_end = row+((num_cols-1)-col);
+        }
+    }
+
+    // Compute Diagonal up right limits ("inverting board so we can reuse code": row = (num_rows-1)-row )
+    //compute starts
+    int distance_from_end = (num_rows-1)-row;
+
+    if( distance_from_end <= col){
+        if(distance_from_end > 2){
+            diagonal_up_row_start = row+3;
+            diagonal_up_col_start = col-3;
+        } else {
+            diagonal_up_row_start = num_rows-1;
+            diagonal_up_col_start = col-distance_from_end;
+        }
+    } else{
+        if(col > 2){
+            diagonal_up_col_start = col-3;
+            diagonal_up_row_start = row+3;
+        } else {
+            diagonal_up_col_start = 0;
+            diagonal_up_row_start = row+col;
+        }
+    }
+    //compute ends
+    if(row <= ((num_cols-1)-col)){
+        if(row > 2){
+            diagonal_up_row_end = row-3;
+            diagonal_up_col_end = col+3;
+        } else {
+            diagonal_up_row_end = 0;
+            diagonal_up_col_end = col+row;
+        }
+    } else{
+        if(col < num_cols-3){
+            diagonal_up_col_end = col+3;
+            diagonal_up_row_end = row-3;
+        } else {
+            diagonal_up_col_end = num_cols-1;
+            diagonal_up_row_end = row-((num_cols-1)-col);
+        }
+    }
+
+    if(diagonal_down_col_end - diagonal_down_col_start >= 0){
+        check_diagonal_down = 1;
+    }
+
+    if(diagonal_up_col_end - diagonal_down_col_start >= 0){
+        check_diagonal_up = 1;
+    }
+
+    char *token1, *token2, *token3, *token4;
+    int found = 0;
+
+    for(int i = vertical_row_start; i<vertical_row_end-3; i++){
+        token1 = &board[i][col];
+        token2 = &board[i+1][col];
+        token3 = &board[i+2][col];
+        token4 = &board[i+3][col];
+
+        if(three_equal_and_one_dash(token1, token2, token3, token4)) found = 1;
+        if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
+    }
+    if(found) return FOUND_SOLUTION;
+
+    for(int i = horizontal_col_start; i<horizontal_col_end-3; i++){
+        token1 = &board[row][i];
+        token3 = &board[row][i+1];
+        token4 = &board[row][i+2];
+        token2 = &board[row][i+3];
+        if(three_equal_and_one_dash(token1, token2, token3, token4)) found = 1;
+        if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
+    }
+    if(found) return FOUND_SOLUTION;
+
+    if(check_diagonal_down){
+        for(int i = diagonal_down_col_start; i<diagonal_down_col_end-3; i++){
+            token1 = &board[diagonal_down_row_start][i];
+            token3 = &board[diagonal_down_row_start+1][i+1];
+            token4 = &board[diagonal_down_row_start+2][i+2];
+            token2 = &board[diagonal_down_row_start+3][i+3];
+
+            diagonal_down_row_start++;
+
+            if(three_equal_and_one_dash(token1, token2, token3, token4)) found = 1;
+            if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
+        }
+        if(found) return FOUND_SOLUTION;
+    }
+
+    if(check_diagonal_up){
+        for(int i = diagonal_up_col_start; i<diagonal_up_col_end-3; i++){
+            token1 = &board[diagonal_up_row_start][i];
+            token3 = &board[diagonal_up_row_start-1][i+1];
+            token4 = &board[diagonal_up_row_start-2][i+2];
+            token2 = &board[diagonal_up_row_start-3][i+3];
+
+            diagonal_up_row_start--;
+
+            if(three_equal_and_one_dash(token1, token2, token3, token4)) found = 1;
+            if(four_in_a_row(num_rows, num_cols)) return INITIAL_BOARD_NO_SOLUTION;
+        }
+        if(found) return FOUND_SOLUTION;
+    }
+    
+    return HEURISTICS_FAILED;
+}
+
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
     char *board_string = malloc(num_rows*num_cols*sizeof(char));
     
@@ -327,8 +491,8 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
 
     initialize_board(board_string, num_rows, num_cols);
 
-    int *num_x = malloc(sizeof(int));
-    int *num_o = malloc(sizeof(int));   
+    // int *num_x = malloc(sizeof(int));
+    // int *num_o = malloc(sizeof(int));   
     //get rid of a token
     for (int row = 0; row<num_rows; row++){
 
@@ -344,7 +508,7 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
             // printf("\n");
 
             //solve
-            int code = solve(board_string, num_rows, num_cols, num_x, num_o);
+            int code = solve_for_single_token(board_string, num_rows, num_cols, row, col);
 
             if(code != FOUND_SOLUTION){
                 medium_board[row][col] = store;
@@ -352,8 +516,8 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
             }
         }
     }
-    free(num_x);
-    free(num_o);
+    // free(num_x);
+    // free(num_o);
 
     return board_string;
 }
