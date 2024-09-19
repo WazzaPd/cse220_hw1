@@ -410,7 +410,6 @@ int four_in_a_row_for_single_token(int num_rows, int num_cols, int row, int col)
     }
 
     char *token1, *token2, *token3, *token4;
-    int found = 0;
 
     diagonal_down_row_end = diagonal_up_row_end;
     diagonal_up_row_end = diagonal_down_row_end;
